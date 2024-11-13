@@ -34,3 +34,18 @@ end
 post '/record' do
 	erb :visit
 end
+
+get '/admin' do
+	erb :admin
+end
+
+post '/admin' do
+	@login = params[:login]
+	@password = params[:password]
+
+	if @login == 'admin' && @password == 'secret'
+		erb 'Доступ разрешен'
+	else
+		erb 'Некорректные логин или пароль'
+	end
+end

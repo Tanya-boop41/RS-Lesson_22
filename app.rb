@@ -23,9 +23,10 @@ post '/visit' do
 	@username = params[:username]
 	@phone = params[:phone]
 	@date_time = params[:date_time]
+	@barber = params[:barber]
 
 	f = File.open './public/users.txt', 'a'
-	f.write "Имя: #{@username}, телефон: #{@phone}, дата и время записи: #{@date_time} \n"
+	f.write "Имя: #{@username}, телефон: #{@phone}, дата и время записи: #{@date_time}, парикмахер: #{@barber} \n"
 	f.close
 
 	erb :record
@@ -44,7 +45,8 @@ post '/admin' do
 	@password = params[:password]
 
 	if @login == 'admin' && @password == 'secret'
-		erb 'Доступ разрешен'
+		@user_file = File.open('./public/users.txt', 'r')
+		erb :users
 	else
 		erb 'Некорректные логин или пароль'
 	end
